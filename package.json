@@ -5,11 +5,13 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
+    "start:expo": "expo start",
     "lint": "eslint *.js **/*.js",
     "lint:fix": "eslint --fix **/*.js",
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "axios": "^0.21.1",
