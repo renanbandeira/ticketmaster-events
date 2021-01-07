@@ -24,4 +24,19 @@ describe('SearchView component', () => {
     expect(root.findAllByType(TouchableOpacity)).toHaveLength(0);
     expect(root.findAllByType(SearchBar)).toHaveLength(1);
   });
+
+  it('renders search button after clearing search', async () => {
+    const { root } = renderer.create(<SearchView />);
+    await renderer.act(async () => {
+      expect(root.findAllByType(SearchBar)).toHaveLength(0);
+      root.findByType(TouchableOpacity).props.onPress();
+    });
+    expect(root.findAllByType(TouchableOpacity)).toHaveLength(0);
+    expect(root.findAllByType(SearchBar)).toHaveLength(1);
+    await renderer.act(async () => {
+      root.findByType(SearchBar).props.onClear();
+    });
+    expect(root.findAllByType(TouchableOpacity)).toHaveLength(1);
+    expect(root.findAllByType(SearchBar)).toHaveLength(0);
+  });
 });

@@ -11,6 +11,8 @@ jest.mock('expo-constants', () => ({
   }
 }));
 
-it.skip('skip.renders correctly', () => {
-  renderer.create(<App />);
+it('renders correctly', async () => {
+  await (renderer.act(async () => {
+    renderer.create(<App />);
+  }));
 });
