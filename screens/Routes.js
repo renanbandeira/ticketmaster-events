@@ -7,9 +7,9 @@ import EventsList from './EventsList';
 const Stack = createStackNavigator();
 
 export default function Routes() {
-  return <NavigationContainer
-  >
-    <Stack.Navigator
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
         initialRouteName="EventsList"
       >
         <Stack.Screen
@@ -17,5 +17,6 @@ export default function Routes() {
           component={EventsList}
         />
       </Stack.Navigator>
-  </NavigationContainer>;
+    </NavigationContainer>
+  );
 }
