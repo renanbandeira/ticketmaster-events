@@ -7,12 +7,4 @@ export default StyleSheet.create({
     paddingTop: 12,
     paddingLeft: 10
   },
-  list: {
-   paddingHorizontal: 20,
-  },
-  loadingContainer: {
-    alignSelf: 'center',
-    marginVertical: 20,
-    marginBottom: 20
-  }
 });
