@@ -1,0 +1,12 @@
+{
+  "name": "ticketmaster-events",
+  "displayName": "ticketmaster-events",
+  "expo": {
+    "name": "ticketmaster-events",
+    "slug": "ticketmaster-events",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
