@@ -5,10 +5,13 @@ import {
 import { SearchBar } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
-const SearchView = () => {
-  const [search, onChangeSearch] = useState('');
+const SearchView = ({ onChangeSearch = () => undefined }) => {
+  const [search, setSearch] = useState('');
   const [searchViewEnabled, setSearchViewEnabled] = useState(false);
-
+  const onChangeText = (text) => {
+    setSearch(text);
+    onChangeSearch(text);
+  };
   return (
     <View style={styles.rootSearch}>
       {searchViewEnabled
@@ -18,7 +21,7 @@ const SearchView = () => {
               containerStyle={styles.searchContainerInput}
               inputContainerStyle={styles.searchContainerInput}
               placeholder="Search Events by Title"
-              onChangeText={onChangeSearch}
+              onChangeText={onChangeText}
               value={search}
               lightTheme
               clearIcon
