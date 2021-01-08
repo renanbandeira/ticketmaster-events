@@ -6,8 +6,6 @@ import EventsList from './EventsList';
 import EventDetail from './EventDetail';
 import WishList from './WishList';
 
-import { IconWithBadge, SearchView } from '../components';
-
 import { WishListProvider } from '../context/WishListContext';
 
 const Stack = createStackNavigator();
