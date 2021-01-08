@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import EventsList from './EventsList';
 import EventDetail from './EventDetail';
 
+import { IconWithBadge, SearchView } from '../components';
+
 const Stack = createStackNavigator();
 
 export default function Routes() {
@@ -17,6 +19,11 @@ export default function Routes() {
       fontWeight: 'bold'
     }
   };
+  const wishListButtonStyle = {
+    headerRight: () => (
+      <IconWithBadge count={2} />
+    )
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -28,7 +35,7 @@ export default function Routes() {
         <Stack.Screen
           name="EventsList"
           component={EventsList}
-          options={{ title: 'Ticket Master Events' }}
+          options={{ title: 'Ticket Master Events', ...wishListButtonStyle }}
         />
         <Stack.Screen
           name="EventDetail"

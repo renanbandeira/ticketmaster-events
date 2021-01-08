@@ -11,7 +11,7 @@ const EventItem = ({ event, onPress }) => {
   const Container = onPress ? TouchableOpacity : View;
   const [isActive, setActive] = useState(false);
   return (
-    <Container style={styles.rootEvent} onPress={onPress} testId="event-container">
+    <Container style={styles.rootEvent} onPress={onPress}>
       <Image
         style={styles.eventImg}
         source={{ uri: event.images ? event.images[0].url : 'https://image.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-260nw-1037719192.jpg' }}
