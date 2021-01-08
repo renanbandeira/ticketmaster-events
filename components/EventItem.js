@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Text, View, StyleSheet, Image, TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-animated-icons';
 
-const EventItem = ({ event, onPress }) => {
+const EventItem = ({
+  event, onPress, isFavorite, onAddFavorite, onRemoveFavorite
+}) => {
   if (!event) {
     return null;
   }
   const Container = onPress ? TouchableOpacity : View;
-  const [isActive, setActive] = useState(false);
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      onRemoveFavorite(event);
+    } else {
+      onAddFavorite(event);
+    }
+  };
   return (
     <Container style={styles.rootEvent} onPress={onPress}>
       <Image
@@ -20,9 +28,9 @@ const EventItem = ({ event, onPress }) => {
         <Text style={styles.title}>{event.name}</Text>
         <Text style={styles.date}>{event.dates ? event.dates.start.localDate : 'No Date'}</Text>
       </View>
-      <TouchableOpacity style={styles.favoriteArea} onPress={() => setActive(!isActive)}>
+      <TouchableOpacity style={styles.favoriteArea} onPress={toggleFavorite}>
         <View>
-          <Icon name={isActive ? 'heart' : 'heart-outline'} size={32} color="#4CAF50" />
+          <Icon name={isFavorite ? 'heart' : 'heart-outline'} size={32} color="#4CAF50" />
         </View>
       </TouchableOpacity>
     </Container>

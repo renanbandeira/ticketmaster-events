@@ -1,9 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, ActivityIndicator, FlatList } from 'react-native';
+import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
+import { View, ActivityIndicator, FlatList } from 'react-native';
 import { throttle } from 'underscore';
 
-import { EventItem, SearchView } from '../../components';
+import { EventItem, SearchView, IconWithBadge } from '../../components';
+import { WishListContext } from '../../context/WishListContext';
 
 import { fetchEvents } from '../../api';
 
@@ -15,6 +15,22 @@ export default function EventsList({ navigation }) {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentQuery, setCurrentQuery] = useState();
+  const [wishListEvents, addWishListEvent, removeWishListEvent, isEventInWishList] = useContext(WishListContext);
+  const goToWishList = () => navigation.navigate('WishList');
+  useLayoutEffect(() => {
+    const wishListSize = Object.keys(wishListEvents).length;
+    if (wishListSize) {
+      navigation.setOptions({
+        headerRight: () => (
+          <IconWithBadge count={wishListSize} onPress={goToWishList} />
+        )
+      });
+    } else {
+      navigation.setOptions({
+        headerRight: () => null
+      });
+    }
+  }, [wishListEvents]);
   const fetchMoreEvents = () => {
     setLoading(true);
     fetchEvents(page, currentQuery).then((response) => {
@@ -51,11 +67,17 @@ export default function EventsList({ navigation }) {
     )
   };
 
+  const goToDetails = event => () => navigation.navigate('EventDetail', { event });
   const renderItem = ({ item }) => (
-    <EventItem event={item} onPress={goToDetails(item)} />
+    <EventItem
+      event={item}
+      onPress={goToDetails(item)}
+      onAddFavorite={addWishListEvent}
+      onRemoveFavorite={removeWishListEvent}
+      isFavorite={isEventInWishList(item)}
+    />
   );
 
-  const goToDetails = event => () => navigation.navigate('EventDetail', { event });
   return (
     <View style={styles.container}>
       <SearchView onChangeSearch={throttle(onChangeSearch, 1500)} />

@@ -1,25 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useContext, useLayoutEffect } from 'react';
+import {
+  View, FlatList
+} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
-import { EventItem, SearchView } from '../../components';
+import { EventItem } from '../../components';
+import { WishListContext } from '../../context/WishListContext';
 
 import styles from './styles';
 
-export default function WishList({ navigation }) {
-  const event = {
-    title: 'Event Title',
-    date: 'Event Date',
-    img: 'https://i.pinimg.com/originals/33/b8/69/33b869f90619e81763dbf1fccc896d8d.jpg'
-  };
+const animations = ['slideInLeft', 'slideInRight'];
 
-  const goToDetails = () => navigation.navigate('EventDetail', { event });
+export default function WishList({ navigation }) {
+  const [wishListEvents, addWishListEvent, removeWishListEvent] = useContext(WishListContext);
+
+  useLayoutEffect(() => {
+    if (Object.keys(wishListEvents).length === 0) {
+      navigation.goBack();
+    }
+  }, [wishListEvents, navigation]);
+
+  const goToDetails = (event) => () => navigation.navigate('EventDetail', { event });
+  const renderItem = ({ item, index }) => (
+    <Animatable.View animation={animations[index % 2]} iterationCount={1} direction="normal">
+      <EventItem
+        event={item}
+        onPress={goToDetails(item)}
+        onAddFavorite={addWishListEvent}
+        onRemoveFavorite={removeWishListEvent}
+        isFavorite
+      />
+    </Animatable.View>
+  );
 
   return (
     <View style={styles.container}>
-      <SearchView />
-      <EventItem event={event} onPress={goToDetails} />
-      <StatusBar style="auto" />
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={Object.values(wishListEvents)}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }
