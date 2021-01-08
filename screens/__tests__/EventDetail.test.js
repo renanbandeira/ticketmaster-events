@@ -10,7 +10,7 @@ describe('EventDetail screen', () => {
     renderer.create(<EventDetail route={{ params: {} }} />);
   });
 
-  it('renders event item', () => {
+  it('renders event item', async () => {
     const event = {
       name: 'Disney',
       dates: {
@@ -22,7 +22,11 @@ describe('EventDetail screen', () => {
         { url: '' }
       ]
     };
-    const { root } = renderer.create(<EventDetail route={{ params: { event } }} />);
+    let wrapper;
+    await renderer.act(async () => {
+      wrapper = renderer.create(<EventDetail route={{ params: { event } }} />);
+    });
+    const { root } = wrapper;
     expect(root.findAllByType(EventItem)).toHaveLength(1);
     const texts = root.findAllByType('Text');
     expect(texts).toHaveLength(3);

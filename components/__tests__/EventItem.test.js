@@ -1,6 +1,6 @@
-import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
+
 import EventItem from '../EventItem';
 
 describe('EventItem component', () => {
@@ -27,7 +27,7 @@ describe('EventItem component', () => {
     expect(texts[1].children[0]).toBe(event.dates.start.localDate);
   });
 
-  it('tests press event', () => {
+  it('tests press event', async () => {
     let hasPressedButton = false;
     const event = {
       name: 'Disney',
@@ -45,7 +45,9 @@ describe('EventItem component', () => {
     };
     const { root } = renderer.create(<EventItem event={event} onPress={onPress} />);
     expect(hasPressedButton).toBe(false);
-    root.props.onPress();
+    await renderer.act(async () => {
+      root.props.onPress();
+    });
     expect(hasPressedButton).toBe(true);
   });
 });

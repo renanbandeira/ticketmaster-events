@@ -15,12 +15,12 @@ describe('fetch events', () => {
     const response = {
       _embedded: {
         events: [{
-          name: 'DIsney'
+          name: 'Disney'
         }]
       }
     };
     axios.get.mockImplementationOnce(() => Promise.resolve(response));
-    await expect(fetchEvents()).resolves.toEqual(response);
+    await expect(fetchEvents(0, 'Disney')).resolves.toEqual(response);
   });
 
   it('fetches erroneously events from server', async () => {

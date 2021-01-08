@@ -11,13 +11,8 @@ jest.mock('expo-constants', () => ({
   }
 }));
 
-it('renders correctly', () => {
-  renderer.create(<Routes />);
-});
-
-it('renders event detail title', async () => {
-  let wrapper;
+it('renders correctly', async () => {
   await renderer.act(async () => {
-    wrapper = renderer.create(<Routes />);
+    renderer.create(<Routes />);
   });
 });
