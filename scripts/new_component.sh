@@ -78,8 +78,6 @@ EOM
 
 log "Creating component reference into $DIRECTORY/index.js"
 
-cat > "$DIRECTORY/index.js" <<- EOM
-export $COMPONENT from './${COMPONENT}';
-EOM
+echo "export ${COMPONENT} from './${COMPONENT}';" >> ./${DIRECTORY}/index.js
 
 success "Component ${COMPONENT} created successfully at '${DIRECTORY}'.";
