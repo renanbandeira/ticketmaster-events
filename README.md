@@ -6,6 +6,8 @@ Ticketmaster-events is a mobile app built with React-Native and consumes Ticketm
 
 You need to have `node` and `yarn` installed. After cloning the repository you might want to run `yarn install` on root folder.
 
+*Some warnings may appear after running on development mode. This is due to the icons library I used here that is outdated. Forking it and opening a Pull Request should fix the issue*
+
 ## Libraries & Tools
 
   - Expo
@@ -16,6 +18,17 @@ You need to have `node` and `yarn` installed. After cloning the repository you m
   - React Hooks
   - Context API
   - StyleSheet
+  - @react-native-async-storage/async-storage (AsyncStorage)
+
+## Folder structure
+
+- `api` - Folder with network layer content.
+- `components` - Folder with components used by screens.
+- `screens` - Folder containing the Routes config and the screens components.
+- `context` - Folder containing Context components responsible to share data between components. In this case, we used to store and access WishList.
+- `scripts` - Folder containing scripts to improve work time.
+- `storage` - Folder containing files to access storage.
+- `__tests__` - Folder with tests
 
 ## Features
 
@@ -41,7 +54,7 @@ You can run the app through `expo` with the following commands:
 
 ### Other useful commands
 There are other useful commands about testing, checking lint and creating new commands automatically:
-- `yarn test`- Run all tests and prints code coverage. **Current coverage: ~90%**.
+- `yarn test`- Run all tests and prints code coverage. **Current coverage: ~94%**.
 - `yarn test:watch`- Run all tests and watches for changes on files to run again automatically.
 - `yarn lint` - Checks lint formatting for all js files on project.
 - `yarn lint:fix` - Runs lint and try to fix the formatting automatic fixable issues.
