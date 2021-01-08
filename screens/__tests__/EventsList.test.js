@@ -94,4 +94,35 @@ describe('EventsList screen', () => {
     expect(axios.get).toHaveBeenCalledTimes(2);
     axiosGetSpy.mockRestore();
   });
+
+  it('renders IconWithBadge for wish list events', async () => {
+    const axiosGetSpy = jest.spyOn(axios, 'get').mockResolvedValueOnce({ data: response });
+    const addWishListEvent = jest.fn();
+    const removeWishListEvent = jest.fn();
+    const isEventInWishList = jest.fn();
+    const setOptions = jest.fn(({ headerRight }) => {
+      const header = headerRight();
+      expect(header).not.toBe(null);
+      expect(header.props.count).toEqual(1);
+    });
+    const wishListEvents = {
+      1021: {
+        id: '1021',
+        name: 'DIsney'
+      }
+    };
+    let wrapper;
+    await renderer.act(async () => {
+      wrapper = renderer.create(
+        <WishListContext.Provider
+          value={[wishListEvents, addWishListEvent, removeWishListEvent, isEventInWishList]}
+        >
+          <EventsList navigation={{ setOptions }} />
+        </WishListContext.Provider>
+      );
+    });
+    expect(wrapper.root.findAllByType(EventItem)).toHaveLength(1);
+    expect(setOptions).toHaveBeenCalledTimes(1);
+    axiosGetSpy.mockRestore();
+  });
 });
