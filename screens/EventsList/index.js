@@ -80,7 +80,7 @@ export default function EventsList({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <SearchView onChangeSearch={throttle(onChangeSearch, 1500)} />
+      <SearchView testId="search-view" onChangeSearch={throttle(onChangeSearch, 1500)} />
       <FlatList
         contentContainerStyle={styles.list}
         data={currentQuery ? filteredEvents : events}

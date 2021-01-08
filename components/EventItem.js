@@ -25,10 +25,10 @@ const EventItem = ({
         source={{ uri: event.images ? event.images[0].url : 'https://image.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-260nw-1037719192.jpg' }}
       />
       <View style={styles.eventContent}>
-        <Text style={styles.title}>{event.name}</Text>
-        <Text style={styles.date}>{event.dates ? event.dates.start.localDate : 'No Date'}</Text>
+        <Text style={styles.title} testId="event-name">{event.name}</Text>
+        <Text style={styles.date} testId="event-dates">{event.dates ? event.dates.start.localDate : 'No Date'}</Text>
       </View>
-      <TouchableOpacity style={styles.favoriteArea} onPress={toggleFavorite}>
+      <TouchableOpacity style={styles.favoriteArea} onPress={toggleFavorite} testId="favorite-icon">
         <View>
           <Icon name={isFavorite ? 'heart' : 'heart-outline'} size={32} color="#4CAF50" />
         </View>

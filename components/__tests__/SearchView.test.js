@@ -39,4 +39,23 @@ describe('SearchView component', () => {
     expect(root.findAllByType(TouchableOpacity)).toHaveLength(1);
     expect(root.findAllByType(SearchBar)).toHaveLength(0);
   });
+
+  it('calls onChangeSearch prop after editting query', async () => {
+    let searchQuery = '';
+    const onChangeSearch = (query) => {
+      searchQuery = query;
+    };
+    const { root } = renderer.create(<SearchView onChangeSearch={onChangeSearch} />);
+    await renderer.act(async () => {
+      expect(root.findAllByType(SearchBar)).toHaveLength(0);
+      root.findByType(TouchableOpacity).props.onPress();
+    });
+    expect(root.findAllByType(TouchableOpacity)).toHaveLength(0);
+    expect(root.findAllByType(SearchBar)).toHaveLength(1);
+    expect(searchQuery).toEqual('');
+    await renderer.act(async () => {
+      root.findByType(SearchBar).props.onChangeText('Disney');
+    });
+    expect(searchQuery).toEqual('Disney');
+  });
 });

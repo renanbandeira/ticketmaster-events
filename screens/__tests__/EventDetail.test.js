@@ -4,10 +4,22 @@ import renderer from 'react-test-renderer';
 import EventDetail from '../EventDetail';
 
 import { EventItem } from '../../components';
+import { WishListContext } from '../../context/WishListContext';
 
 describe('EventDetail screen', () => {
+  const addWishListEvent = jest.fn();
+  const removeWishListEvent = jest.fn();
+  const isEventInWishList = jest.fn();
+  const wishListEvents = {};
+
   it('renders correctly', () => {
-    renderer.create(<EventDetail route={{ params: {} }} />);
+    renderer.create(
+      <WishListContext.Provider
+        value={[wishListEvents, addWishListEvent, removeWishListEvent, isEventInWishList]}
+      >
+        <EventDetail route={{ params: {} }} />
+      </WishListContext.Provider>
+    );
   });
 
   it('renders event item', async () => {
@@ -24,7 +36,13 @@ describe('EventDetail screen', () => {
     };
     let wrapper;
     await renderer.act(async () => {
-      wrapper = renderer.create(<EventDetail route={{ params: { event } }} />);
+      wrapper = renderer.create(
+        <WishListContext.Provider
+          value={[wishListEvents, addWishListEvent, removeWishListEvent, isEventInWishList]}
+        >
+          <EventDetail route={{ params: { event } }} />
+        </WishListContext.Provider>
+      );
     });
     const { root } = wrapper;
     expect(root.findAllByType(EventItem)).toHaveLength(1);
