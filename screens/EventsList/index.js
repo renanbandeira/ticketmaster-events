@@ -35,7 +35,7 @@ export default function EventsList({ navigation }) {
     setLoading(true);
     fetchEvents(page, currentQuery).then((response) => {
       setPage(page + 1);
-      if (response.data) {
+      if (response.data && response.data['_embedded']) {
         if (currentQuery) {
           setFilteredEvents([...filteredEvents, ...response.data['_embedded'].events]);
         } else {
